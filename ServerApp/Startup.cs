@@ -57,8 +57,14 @@ namespace ServerApp
             });
 
             app.UseSpa(spa => {
-                spa.Options.SourcePath = "../ClientApp";
-                spa.UseAngularCliServer("start");
+                string strategy = Configuration
+                    .GetValue<string>("DevTools:ConnectionStrategy");
+                if (strategy == "proxy") {
+                    spa.UseProxyToSpaDevelopmentServer("http:/127.0.0.1:4200");
+                } else if (strategy == "managed") {
+                    spa.Options.SourcePath = "../ClientApp";
+                    spa.UseAngularCliServer("start");
+                }
             });
         }
     }

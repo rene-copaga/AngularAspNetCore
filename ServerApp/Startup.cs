@@ -32,7 +32,10 @@ namespace ServerApp
             services.AddDbContext<DataContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddJsonOptions(opts => {
+                    opts.JsonSerializerOptions.IgnoreNullValues = true;
+                });
             services.AddRazorPages();
 
             services.AddSwaggerGen(options => {

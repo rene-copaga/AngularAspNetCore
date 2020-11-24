@@ -20,7 +20,7 @@ namespace ServerApp.Controllers
         public Product GetProduct(long id)
         {
             Product result = context.Products
-                .Include(p => p.Supplier)
+                .Include(p => p.Supplier).ThenInclude(s => s.Products)
                 .Include(p => p.Ratings)
                 .FirstOrDefault(p => p.ProductId == id);
 
@@ -28,7 +28,15 @@ namespace ServerApp.Controllers
             {
                 if (result.Supplier != null)
                 {
-                    result.Supplier.Products = null;
+                    result.Supplier.Products = result.Supplier.Products.Select(p =>
+                        new Product
+                        {
+                            ProductId = p.ProductId,
+                            Name = p.Name,
+                            Category = p.Category,
+                            Description = p.Description,
+                            Price = p.Price,
+                        });
                 }
                 if (result.Ratings != null)
                 {

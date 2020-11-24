@@ -10,7 +10,7 @@ export class Repository {
   products: Product[];
 
   constructor(private http: HttpClient) {
-    this.getProduct(1);
+    this.getProducts(true);
   }
 
   getProduct(id: number) {

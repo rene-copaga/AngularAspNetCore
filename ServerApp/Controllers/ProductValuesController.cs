@@ -157,5 +157,19 @@ namespace ServerApp.Controllers
             }
 
         }
+
+        [HttpDelete("{id}")]
+        public void DeleteProduct(long id)
+        {
+            context.Products.Remove(new Product { ProductId = id });
+            context.SaveChanges();
+        }
+
+        [HttpDelete("{id}")]
+        public void DeleteSupplier(long id)
+        {
+            context.Remove(new Supplier { SupplierId = id });
+            context.SaveChanges();
+        }
     }
 }

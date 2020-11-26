@@ -53,7 +53,7 @@ namespace ServerApp.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Product> GetProducts(string category, string search, 
+        public IEnumerable<Product> GetProducts(string category, string search,
             bool related = false)
         {
             IQueryable<Product> query = context.Products;
@@ -74,7 +74,8 @@ namespace ServerApp.Controllers
             {
                 query = query.Include(p => p.Supplier).Include(p => p.Ratings);
                 List<Product> data = query.ToList();
-                data.ForEach(p => {
+                data.ForEach(p =>
+                {
                     if (p.Supplier != null)
                     {
                         p.Supplier.Products = null;
@@ -156,4 +157,5 @@ namespace ServerApp.Controllers
             }
 
         }
+    }
 }

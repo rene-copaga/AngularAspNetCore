@@ -23,7 +23,7 @@ export class Repository {
   constructor(private http: HttpClient) {
     //this.filter.category = "soccer";
     this.filter.related = true;
-    this.getProducts(true);
+    //this.getProducts(true);
   }
 
   getProduct(id: number) {

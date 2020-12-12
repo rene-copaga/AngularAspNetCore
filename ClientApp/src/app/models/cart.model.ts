@@ -1,11 +1,21 @@
 import { Injectable } from "@angular/core";
 import { Product } from "./product.model";
+import { Repository } from './repository';
 
 @Injectable()
 export class Cart {
   selections: ProductSelection[] = [];
   itemCount: number = 0;
   totalPrice: number = 0;
+
+  constructor(private repo: Repository) {
+    repo.getSessionData<ProductSelection[]>("cart").subscribe(cartData => {
+      if (cartData != null) {
+        cartData.forEach(item => this.selections.push(item));
+        this.update(false);
+      }
+    });
+  }
 
   addProduct(product: Product) {
     let selection = this.selections
@@ -40,11 +50,19 @@ export class Cart {
     this.update();
   }
 
-  update() {
+  update(storeData: boolean = true) {
     this.itemCount = this.selections.map(ps => ps.quantity)
       .reduce((prev, curr) => prev + curr, 0);
     this.totalPrice = this.selections.map(ps => ps.price * ps.quantity)
       .reduce((prev, curr) => prev + curr, 0);
+    if (storeData) {
+      this.repo.storeSessionData("cart", this.selections.map(s => {
+        return {
+          productId: s.productId, name: s.name,
+          price: s.price, quantity: s.quantity
+        }
+      }));
+    }
   }
 }
 

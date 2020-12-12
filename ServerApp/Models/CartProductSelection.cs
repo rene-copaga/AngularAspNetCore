@@ -1,6 +1,6 @@
 ﻿namespace ServerApp.Models
 {
-    public class CartProductSelection
+    public class ProductSelection
     {
         public long productId { get; set; }
         public string name { get; set; }

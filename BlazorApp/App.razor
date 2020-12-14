@@ -15,6 +15,11 @@
     SearchSettings search = new SearchSettings();
     string results = "No results to display";
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        JSRuntime.InvokeAsync<Object>("angular_receiveReference", new object [] { DotNetObjectReference.Create(this) });
+    }
+
     async void HandleSearch()
     {
         if (search.searchTerm != String.Empty)
@@ -26,6 +31,14 @@
             results = $"{ prods.Length } products, total price is ${ totalPrice }";
             StateHasChanged();
         }
+    }
+
+    [JSInvokable]
+    public void resetSearch(string message)
+    {
+        search.searchTerm = "";
+        results = message;
+        StateHasChanged();
     }
 
     class Product

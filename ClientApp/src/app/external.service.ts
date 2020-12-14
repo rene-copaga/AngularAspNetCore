@@ -1,18 +1,18 @@
-import { Injectable } from "@angular/core";
+import { Injectable, NgZone } from "@angular/core";
 import { Repository } from './models/repository';
 import { Product } from './models/product.model';
 
 @Injectable()
 export class ExternalService {
 
-  constructor(private repository: Repository) {
+  constructor(private repository: Repository, private zone: NgZone) {
     window["angular_searchProducts"] = this.doSearch.bind(this);
   }
 
-  doSearch(searchTerm: string): Product[] {
-    let lowerTerm = searchTerm.toLowerCase();
-    return this.repository.products
-      .filter(p => p.name.toLowerCase().includes(lowerTerm)
-        || p.description.toLowerCase().includes(lowerTerm));
+  async doSearch(searchTerm: string): Promise<Product[]> {
+    return this.zone.run(async () => {
+      this.repository.filter.search = searchTerm;
+      return (await this.repository.getProducts()).data;
+    })
   }
 }

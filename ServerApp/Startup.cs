@@ -118,6 +118,8 @@ namespace ServerApp
             app.Map("/blazor", opts => 
                 opts.UseClientSideBlazorFiles<BlazorApp.Startup>());
 
+            app.UseClientSideBlazorFiles<BlazorApp.Startup>();
+
             app.UseSwagger();
             app.UseSwaggerUI(options => {
                 options.SwaggerEndpoint("/swagger/v1/swagger.json",

@@ -2,9 +2,16 @@ import { Injectable } from "@angular/core";
 import { Router, ActivatedRoute, NavigationEnd } from "@angular/router";
 import { Repository } from '../models/repository';
 import { filter } from "rxjs/operators";
+import { Subject, Observable } from 'rxjs';
+
+export type NavigationUpdate = {
+  category: string,
+  page: number
+}
 
 @Injectable()
 export class NavigationService {
+  private changeSubject = new Subject<NavigationUpdate>();
 
   constructor(private repository: Repository, private router: Router, private active: ActivatedRoute) {
     router.events
@@ -32,7 +39,15 @@ export class NavigationService {
           = Number.parseInt(active.params["page"]) || 1
       }
       this.repository.getProducts();
+      this.changeSubject.next({
+        category: this.currentCategory,
+        page: this.currentPage
+      });
     }
+  }
+
+  get change(): Observable<NavigationUpdate> {
+    return this.changeSubject;
   }
 
   get categories(): string[] {

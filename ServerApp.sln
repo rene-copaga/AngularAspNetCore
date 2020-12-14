@@ -26,6 +26,8 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ClientApp", "ClientApp\", "
 		SlnRelativePath = "ClientApp\"
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "BlazorApp\BlazorApp.csproj", "{BCBD62C5-8687-436D-A03F-025B123D6D9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{5161C6FA-7CAD-40F3-817D-773032DF7B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5161C6FA-7CAD-40F3-817D-773032DF7B04}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{5161C6FA-7CAD-40F3-817D-773032DF7B04}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{BCBD62C5-8687-436D-A03F-025B123D6D9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCBD62C5-8687-436D-A03F-025B123D6D9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCBD62C5-8687-436D-A03F-025B123D6D9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCBD62C5-8687-436D-A03F-025B123D6D9C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,6 +11,11 @@ import { OrderConfirmationComponent } from './store/checkout/orderConfirmation.c
 
 
 const routes: Routes = [
+  {
+    path: "admin",
+    loadChildren: () =>
+      import("./admin/admin.module").then(module => module.AdminModule),
+  },
   { path: "checkout/step1", component: CheckoutDetailsComponent },
   { path: "checkout/step2", component: CheckoutPaymentComponent },
   { path: "checkout/step3", component: CheckoutSummaryComponent },

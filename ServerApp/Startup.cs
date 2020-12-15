@@ -56,10 +56,10 @@ namespace ServerApp
                 }).AddNewtonsoftJson();
             services.AddRazorPages();
 
-            services.AddSwaggerGen(options => {
-                options.SwaggerDoc("v1",
-                new OpenApiInfo { Title = "SportsStore API", Version = "v1" });
-            });
+            //services.AddSwaggerGen(options => {
+            //    options.SwaggerDoc("v1",
+            //    new OpenApiInfo { Title = "SportsStore API", Version = "v1" });
+            //});
 
             services.AddDistributedSqlServerCache(options => {
                 options.ConnectionString = connectionString;
@@ -109,6 +109,14 @@ namespace ServerApp
                     "../BlazorApp/wwwroot"))
             });
 
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                RequestPath = "",
+                FileProvider = new PhysicalFileProvider(
+                    Path.Combine(Directory.GetCurrentDirectory(),
+                        "./wwwroot/app"))
+            });
+
             app.UseSession();
 
             app.UseRouting();
@@ -154,27 +162,27 @@ namespace ServerApp
                 endpoints.MapRazorPages();
             });
 
-            app.Map("/blazor", opts => 
-                opts.UseClientSideBlazorFiles<BlazorApp.Startup>());
+            //app.Map("/blazor", opts => 
+            //    opts.UseClientSideBlazorFiles<BlazorApp.Startup>());
 
             app.UseClientSideBlazorFiles<BlazorApp.Startup>();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(options => {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json",
-                "SportsStore API");
-            });
+            //app.UseSwagger();
+            //app.UseSwaggerUI(options => {
+            //    options.SwaggerEndpoint("/swagger/v1/swagger.json",
+            //    "SportsStore API");
+            //});
 
-            app.UseSpa(spa => {
-                string strategy = Configuration
-                    .GetValue<string>("DevTools:ConnectionStrategy");
-                if (strategy == "proxy") {
-                    spa.UseProxyToSpaDevelopmentServer("http:/127.0.0.1:4200");
-                } else if (strategy == "managed") {
-                    spa.Options.SourcePath = "../ClientApp";
-                    spa.UseAngularCliServer("start");
-                }
-            });
+            //app.UseSpa(spa => {
+            //    string strategy = Configuration
+            //        .GetValue<string>("DevTools:ConnectionStrategy");
+            //    if (strategy == "proxy") {
+            //        spa.UseProxyToSpaDevelopmentServer("http:/127.0.0.1:4200");
+            //    } else if (strategy == "managed") {
+            //        spa.Options.SourcePath = "../ClientApp";
+            //        spa.UseAngularCliServer("start");
+            //    }
+            //});
 
             //SeedData.SeedDatabase(services.GetRequiredService<DataContext>());
             //IdentitySeedData.SeedDatabase(services).Wait();

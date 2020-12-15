@@ -8,5 +8,5 @@ import { NavigationService } from '../models/navigation.service';
 })
 export class CategoryFilterComponent {
 
-  constructor(private service: NavigationService) { }
+  constructor(public service: NavigationService) { }
 }
